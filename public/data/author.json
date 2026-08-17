@@ -1,0 +1,74 @@
+{
+  "Rachel Kim": {
+    "slug": "rachel-kim",
+    "avatar": "/images/img1.webp",
+    "title": "Business Editor",
+    "bio": "Covers corporate strategy, retail, and the shifting economics of everyday industries.",
+    "joined": "Writing since 2016",
+    "social": {
+      "twitter": "#",
+      "linkedin": "#",
+      "email": "#"
+    }
+  },
+  "Marcus Webb": {
+    "slug": "marcus-webb",
+    "avatar": "/images/img5.webp",
+    "title": "Finance Correspondent",
+    "bio": "Reports on markets, central banks, and the forces moving global capital.",
+    "joined": "Writing since 2015",
+    "social": {
+      "twitter": "#",
+      "linkedin": "#",
+      "email": "#"
+    }
+  },
+  "Priya Anand": {
+    "slug": "priya-anand",
+    "avatar": "/images/img6.webp",
+    "title": "Technology Editor",
+    "bio": "Covers the companies, breakthroughs, and controversies shaping the tech industry.",
+    "joined": "Writing since 2018",
+    "social": {
+      "twitter": "#",
+      "linkedin": "#",
+      "email": "#"
+    }
+  },
+  "Amélie Roussel": {
+    "slug": "amelie-roussel",
+    "avatar": "/images/img2.webp",
+    "title": "Political Correspondent",
+    "bio": "Reports on diplomacy, elections, and the institutions that shape public policy.",
+    "joined": "Writing since 2017",
+    "social": {
+      "twitter": "#",
+      "linkedin": "#",
+      "email": "#"
+    }
+  },
+  "David Okafor": {
+    "slug": "david-okafor",
+    "avatar": "/images/img7.webp",
+    "title": "Investigative Reporter",
+    "bio": "Specializes in long-form investigations into corporate and government accountability.",
+    "joined": "Writing since 2014",
+    "social": {
+      "twitter": "#",
+      "linkedin": "#",
+      "email": "#"
+    }
+  },
+  "Tomás Herrera": {
+    "slug": "tomas-herrera",
+    "avatar": "/images/img8.webp",
+    "title": "Sports Correspondent",
+    "bio": "Covers athletes, teams, and the business and culture behind the games.",
+    "joined": "Writing since 2019",
+    "social": {
+      "twitter": "#",
+      "linkedin": "#",
+      "email": "#"
+    }
+  }
+}
