@@ -1,21 +1,21 @@
-// components/technology.jsx
+// components/world.jsx
 import Link from "next/link";
 
 // ⚠️ Adjust this path to match where this component actually lives relative to /public/data
 import articleData from "../public/data/article.json";
 
 /**
- * components/technology.jsx — homepage "Technology" section.
+ * components/world.jsx — homepage "World" section.
  *
  * Same visual design as the original MostRead component (numbered list,
  * serif italic numerals) — only the data source changed:
- *  - Pulls only from articleData["technology"].
+ *  - Pulls only from articleData["world"].
  *  - Sorted newest-first by date ("DD/MM/YYYY").
  *  - Takes the first 9 distinct articles via slice(0, 9) from a single
  *    sorted array, so no article can ever appear twice in this section.
  */
 
-const CATEGORY_KEY = "technology";
+const CATEGORY_KEY = "world";
 const ITEM_COUNT = 9;
 
 // Dates in article.json are stored as "DD/MM/YYYY"
@@ -24,7 +24,7 @@ const parseDate = (dateStr) => {
   return new Date(year, month - 1, day);
 };
 
-export default function Technology() {
+export default function World() {
   const articles = articleData[CATEGORY_KEY] || [];
 
   // Newest first, then take the first N — each used exactly once.
@@ -33,7 +33,7 @@ export default function Technology() {
     .slice(0, ITEM_COUNT);
 
   if (items.length === 0) {
-    return null; // No technology articles yet — render nothing.
+    return null; // No world articles yet — render nothing.
   }
 
   return (
@@ -41,7 +41,7 @@ export default function Technology() {
       <div className="mx-auto max-w-[1400px] px-4 py-8 sm:px-8 sm:py-10 lg:px-16">
         <div className="border-t-2 border-neutral-900 pt-6">
           <h2 className="mb-6 text-xl font-bold text-neutral-900 sm:mb-8 sm:text-2xl">
-            Technology
+            World
           </h2>
 
           <ol className="grid grid-cols-1 gap-x-10 gap-y-6 sm:grid-cols-2 sm:gap-y-8 lg:grid-cols-3">

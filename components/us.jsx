@@ -1,4 +1,4 @@
-// components/investigation.jsx
+// components/us.jsx
 import Image from "next/image";
 import Link from "next/link";
 
@@ -6,18 +6,18 @@ import Link from "next/link";
 import articleData from "../public/data/article.json";
 
 /**
- * components/investigation.jsx — homepage "Investigation" section.
+ * components/us.jsx — homepage "U.S." section.
  *
  * Same visual design as the original TrendingNews component (headline +
  * thumbnail rows, grouped into pairs with dividers that never touch) —
  * only the data source changed:
- *  - Pulls only from articleData["investigation"].
+ *  - Pulls only from articleData["us"].
  *  - Sorted newest-first by date ("DD/MM/YYYY").
  *  - Takes the first 4 distinct articles via slice(0, 4) from a single
  *    sorted array, so no article can ever appear twice in this section.
  */
 
-const CATEGORY_KEY = "investigation";
+const CATEGORY_KEY = "us";
 const ITEM_COUNT = 4;
 
 // Dates in article.json are stored as "DD/MM/YYYY"
@@ -49,7 +49,7 @@ function chunkIntoPairs(items) {
   return rows;
 }
 
-export default function Investigation() {
+export default function US() {
   const articles = articleData[CATEGORY_KEY] || [];
 
   // Newest first, then take the first N — each used exactly once.
@@ -58,7 +58,7 @@ export default function Investigation() {
     .slice(0, ITEM_COUNT);
 
   if (items.length === 0) {
-    return null; // No investigation articles yet — render nothing.
+    return null; // No U.S. articles yet — render nothing.
   }
 
   const rows = chunkIntoPairs(items);
@@ -68,14 +68,14 @@ export default function Investigation() {
       <div className="mx-auto max-w-[1400px] px-4 py-8 sm:px-8 sm:py-10 lg:px-16">
         <div className="border-t-2 border-neutral-900 pt-6">
           <h2 className="mb-6 text-xl font-bold text-neutral-900 sm:mb-12 sm:text-3xl">
-            Investigation
+            U.S.
           </h2>
 
           <div className="flex flex-col">
             {rows.map((row, rowIndex) => (
               <div key={rowIndex}>
                 {/* Row: two items, vertical divider only between them, only spans this row's height */}
-                <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-y-0 sm:divide-x sm:divide-neutral-200">
+                <div className="grid grid-cols-1 gap-y-6 sm:grid-cols-2 sm:gap-y-0 sm:divide-x sm:divide-neutral-600">
                   {row.map((item, i) => (
                     <Link
                       key={item.slug}
@@ -102,7 +102,7 @@ export default function Investigation() {
 
                 {/* Horizontal divider: separate full-width line between rows, with margin on both sides so it never meets the vertical divider */}
                 {rowIndex < rows.length - 1 && (
-                  <div className="my-6 border-b border-neutral-200 sm:my-8" />
+                  <div className="my-6 border-b border-neutral-600 sm:my-8" />
                 )}
               </div>
             ))}

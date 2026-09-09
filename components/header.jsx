@@ -12,9 +12,9 @@ import articleData from "../public/data/article.json";
 const NAV_LINKS = [
   { label: "Business", slug: "business" },
   { label: "Finance", slug: "finance" },
-  { label: "Technology", slug: "technology" },
+  { label: "World", slug: "world" },
   { label: "Politics", slug: "politics" },
-  { label: "Investigation", slug: "investigation" },
+  { label: "U.S.", slug: "us" },
   { label: "Sports", slug: "sports" },
 ];
 

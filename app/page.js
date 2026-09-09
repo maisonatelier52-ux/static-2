@@ -1,8 +1,8 @@
 import Business from "@/components/business";
 import Finance from "@/components/finance";
-import Technology from "@/components/technology";
+import World from "@/components/world";
 import Politics from "@/components/politics";
-import Investigation from "@/components/investigation";
+import US from "@/components/us";
 import Sports from "@/components/sports";
 
 export default function Home() {
@@ -10,9 +10,9 @@ export default function Home() {
     <>
       <Business />
       <Finance />
-      <Technology />
+      <World />
       <Politics />
-      <Investigation />
+      <US />
       <Sports />
     </>
   );

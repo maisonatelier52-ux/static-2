@@ -80,7 +80,7 @@ export default function Business() {
               {midStories.map((story) => (
                 <article
                   key={story.slug}
-                  className="border-b border-neutral-200 pb-6 last:border-0 last:pb-0"
+                  className="border-b border-neutral-400 pb-6 last:border-0 last:pb-0"
                 >
                   <Link href={`/${CATEGORY_KEY}/${story.slug}`} className="group block">
                     <div className="relative aspect-[16/9] w-full max-w-full sm:max-w-[280px]">
@@ -110,7 +110,7 @@ export default function Business() {
 
           {/* Feature card */}
           {featureStory && (
-            <article className="border border-neutral-200">
+            <article className="border border-neutral-600">
               <div className="relative aspect-[3/2] w-full">
                 <Image
                   src={featureStory.image}

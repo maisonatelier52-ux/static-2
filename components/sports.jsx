@@ -63,7 +63,7 @@ export default function Sports() {
               <Link
                 key={item.slug}
                 href={`/${CATEGORY_KEY}/${item.slug}`}
-                className="group flex w-full items-center gap-4 rounded-xl border border-neutral-200 p-4 shadow-sm transition-shadow hover:shadow-md sm:w-[calc(50%-16px)] lg:w-[calc(33.333%-22px)]"
+                className="group flex w-full items-center gap-4 rounded-4xl border border-neutral-600 p-4 shadow-lg transition-shadow hover:shadow-md sm:w-[calc(50%-16px)] lg:w-[calc(33.333%-22px)]"
               >
                 <div className="relative shrink-0">
                   <Image
