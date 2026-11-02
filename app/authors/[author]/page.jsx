@@ -1,51 +1,11 @@
-// app/authors/[author]/page.jsx
 "use client";
 
 import { use, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-
-// ⚠️ Adjust these paths to match where this page.jsx actually lives relative to /public/data
 import articleData from "../../../public/data/article.json";
 import authorData from "../../../public/data/author.json";
 
-/**
- * app/authors/[author]/page.jsx — author profile page.
- *
- * Same visual design as before (light hero band with avatar/bio/social
- * icons, article list with icon badge + headline + excerpt + date, Load
- * more button) — only the data source changed to match article.json /
- * author.json (same files used by the article detail and category pages):
- *  - Author info read from authorData[authorSlug] instead of an
- *    auto-generated placeholder.
- *  - Articles derived by flattening every category in articleData and
- *    filtering to ones written by this author, instead of a hardcoded list.
- *  - next/image instead of raw <img>.
- *  - next/link instead of <a href="...">.
- *  - Dates stored as "DD/MM/YYYY" and formatted with parseDate/formatDate,
- *    matching the other pages' convention.
- *
- * Expected shape of /public/data/author.json (extended with profile fields
- * beyond what the article detail page needs):
- *   {
- *     "Staff Writer": {
- *       "slug": "staff-writer",
- *       "avatar": "/images/img1.webp",
- *       "title": "Senior Correspondent",
- *       "bio": "...",
- *       "joined": "Writing since 2014",
- *       "social": {
- *         "twitter": "#",
- *         "linkedin": "#",
- *         "email": "#"
- *       }
- *     }
- *   }
- *
- * See app/[category]/[slug]/page.jsx for the expected article.json shape.
- */
-
-// Small square icon badge, matching the header/homepage kicker style
 function IconBadge() {
   return (
     <span className="mr-1 inline-flex h-4 w-4 shrink-0 items-center justify-center bg-amber-400 align-middle">
@@ -58,8 +18,6 @@ function IconBadge() {
   );
 }
 
-// Inline SVG social icons — avoids relying on brand icons from packages,
-// which get removed/renamed over time due to trademark restrictions.
 const SOCIAL_ICON_PATHS = {
   twitter:
     "M22 5.9c-.7.3-1.5.6-2.3.7a4 4 0 0 0 1.8-2.2c-.8.5-1.6.8-2.6 1a4 4 0 0 0-6.9 3.6A11.4 11.4 0 0 1 3.7 4.6a4 4 0 0 0 1.3 5.4c-.6 0-1.3-.2-1.8-.5v.1a4 4 0 0 0 3.3 4 4 4 0 0 1-1.8.1 4 4 0 0 0 3.8 2.8A8.1 8.1 0 0 1 2 18.4a11.4 11.4 0 0 0 6.3 1.9c7.5 0 11.7-6.3 11.7-11.7v-.5c.8-.6 1.5-1.3 2-2.2Z",
@@ -96,8 +54,6 @@ export default function AuthorPage({ params }) {
   // Next.js 15+/16 passes `params` as a Promise — unwrap it with `use()`.
   const resolvedParams = use(params);
   const authorSlug = resolvedParams?.author;
-
-  // Find the author entry in author.json whose own `slug` matches the URL param.
   const authorEntry = Object.entries(authorData).find(
     ([, info]) => info.slug === authorSlug
   );
@@ -109,7 +65,6 @@ export default function AuthorPage({ params }) {
       ? authorSlug.replace(/-/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
       : "Staff Writer");
 
-  // Flatten every category's articles and keep only this author's, newest first.
   const articles = Object.entries(articleData)
     .flatMap(([category, posts]) => posts.map((post) => ({ ...post, categorySlug: category })))
     .filter((post) => post.author === authorName)
@@ -129,26 +84,16 @@ export default function AuthorPage({ params }) {
       <div className="border-b border-neutral-200 bg-neutral-50">
         <div className="mx-auto max-w-[1400px] px-4 py-10 sm:px-8 sm:py-14 lg:px-16">
           <nav className="mb-6 text-xs font-semibold uppercase tracking-wide text-neutral-500">
-            <Link href="/" className="hover:text-neutral-800">
-              Home
-            </Link>
+            <Link href="/" className="hover:text-neutral-800">Home</Link>
             <span className="mx-2">/</span>
-            <Link href="#" className="hover:text-neutral-800">
-              Authors
-            </Link>
+            <Link href="#" className="hover:text-neutral-800">Authors</Link>
             <span className="mx-2">/</span>
             <span className="text-neutral-800">{displayName}</span>
           </nav>
 
           <div className="flex flex-col items-start gap-6 sm:flex-row sm:items-center">
             {authorInfo.avatar && (
-              <Image
-                src={authorInfo.avatar}
-                alt={displayName}
-                width={128}
-                height={128}
-                className="h-28 w-28 shrink-0 rounded-full bg-neutral-200 object-cover sm:h-32 sm:w-32"
-              />
+              <Image src={authorInfo.avatar} alt={displayName} width={128} height={128} className="h-28 w-28 shrink-0 rounded-full bg-neutral-200 object-cover sm:h-32 sm:w-32"/>
             )}
             <div>
               {authorInfo.title && (
@@ -176,12 +121,7 @@ export default function AuthorPage({ params }) {
               {socialEntries.length > 0 && (
                 <div className="mt-5 flex items-center gap-3">
                   {socialEntries.map((s) => (
-                    <a
-                      key={s.key}
-                      href={s.href}
-                      aria-label={s.label}
-                      className="flex h-9 w-9 items-center justify-center border border-neutral-300 text-neutral-700 hover:border-neutral-900 hover:text-neutral-900"
-                    >
+                    <a key={s.key} href={s.href} aria-label={s.label} className="flex h-9 w-9 items-center justify-center border border-neutral-300 text-neutral-700 hover:border-neutral-900 hover:text-neutral-900">
                       <SocialIcon iconKey={s.key} />
                     </a>
                   ))}
@@ -203,20 +143,13 @@ export default function AuthorPage({ params }) {
         ) : (
           <div className="flex flex-col">
             {visibleArticles.map((article, index) => (
-              <Link
-                key={article.slug}
-                href={`/${article.categorySlug}/${article.slug}`}
+              <Link key={article.slug} href={`/${article.categorySlug}/${article.slug}`}
                 className={`group flex flex-col gap-5 py-8 sm:flex-row sm:items-start sm:gap-8 ${
                   index !== visibleArticles.length - 1 ? "border-b border-neutral-200" : ""
                 }`}
               >
                 <div className="relative aspect-[4/3] w-full sm:w-56 sm:shrink-0">
-                  <Image
-                    src={article.image}
-                    alt={article.imageAlt || article.title}
-                    fill
-                    className="bg-neutral-200 object-cover"
-                  />
+                  <Image src={article.image} alt={article.imageAlt || article.title} fill className="bg-neutral-200 object-cover"/>
                 </div>
                 <div className="flex flex-col">
                   <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500">
@@ -240,10 +173,7 @@ export default function AuthorPage({ params }) {
 
         {hasMore && (
           <div className="mt-10 flex justify-center">
-            <button
-              onClick={() => setVisibleCount((c) => c + PAGE_SIZE)}
-              className="border border-neutral-900 px-8 py-3 text-sm font-bold text-neutral-900 hover:bg-neutral-900 hover:text-white"
-            >
+            <button onClick={() => setVisibleCount((c) => c + PAGE_SIZE)} className="border border-neutral-900 px-8 py-3 text-sm font-bold text-neutral-900 hover:bg-neutral-900 hover:text-white">
               Load more
             </button>
           </div>

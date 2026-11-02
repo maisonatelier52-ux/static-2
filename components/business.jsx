@@ -1,25 +1,9 @@
-// components/business.jsx
 import Image from "next/image";
 import Link from "next/link";
-
-// ⚠️ Adjust this path to match where this component actually lives relative to /public/data
 import articleData from "../public/data/article.json";
-
-/**
- * components/business.jsx — homepage "Business" section.
- *
- * Same visual design as the original MainStories component (lead story +
- * two mid stories + feature card) — only the data source changed:
- *  - Pulls only from articleData["business"].
- *  - Sorted newest-first by date ("DD/MM/YYYY").
- *  - Takes the first 4 distinct articles and assigns them, in order, to
- *    lead / mid[0] / mid[1] / feature — so no single article is ever shown
- *    twice in this section, and the newest article always leads.
- */
 
 const CATEGORY_KEY = "business";
 
-// Dates in article.json are stored as "DD/MM/YYYY"
 const parseDate = (dateStr) => {
   const [day, month, year] = dateStr.split("/");
   return new Date(year, month - 1, day);
@@ -27,8 +11,6 @@ const parseDate = (dateStr) => {
 
 export default function Business() {
   const articles = articleData[CATEGORY_KEY] || [];
-
-  // Newest first, then take the first 4 — each used exactly once below.
   const sorted = [...articles].sort((a, b) => parseDate(b.date) - parseDate(a.date));
   const [leadStory, midStory1, midStory2, featureStory] = sorted;
 
@@ -56,12 +38,7 @@ export default function Business() {
             </Link>
             <div className="mt-4">
               <div className="relative aspect-[4/3] w-full">
-                <Image
-                  src={leadStory.image}
-                  alt={leadStory.imageAlt || leadStory.title}
-                  fill
-                  className="bg-neutral-200 object-cover"
-                />
+                <Image src={leadStory.image} alt={leadStory.imageAlt || leadStory.title} fill className="bg-neutral-200 object-cover"/>
               </div>
               {leadStory.credit && (
                 <p className="mt-1 text-xs text-neutral-500">{leadStory.credit}</p>
@@ -78,18 +55,10 @@ export default function Business() {
           {midStories.length > 0 && (
             <div className="flex flex-col gap-6">
               {midStories.map((story) => (
-                <article
-                  key={story.slug}
-                  className="border-b border-neutral-400 pb-6 last:border-0 last:pb-0"
-                >
+                <article key={story.slug} className="border-b border-neutral-400 pb-6 last:border-0 last:pb-0">
                   <Link href={`/${CATEGORY_KEY}/${story.slug}`} className="group block">
                     <div className="relative aspect-[16/9] w-full max-w-full sm:max-w-[280px]">
-                      <Image
-                        src={story.image}
-                        alt={story.imageAlt || story.title}
-                        fill
-                        className="bg-neutral-200 object-cover"
-                      />
+                      <Image src={story.image} alt={story.imageAlt || story.title} fill className="bg-neutral-200 object-cover"/>
                     </div>
                     {story.credit && (
                       <p className="mt-1 text-xs text-neutral-500">{story.credit}</p>
@@ -112,12 +81,7 @@ export default function Business() {
           {featureStory && (
             <article className="border border-neutral-600">
               <div className="relative aspect-[3/2] w-full">
-                <Image
-                  src={featureStory.image}
-                  alt={featureStory.imageAlt || featureStory.title}
-                  fill
-                  className="bg-neutral-200 object-cover"
-                />
+                <Image src={featureStory.image} alt={featureStory.imageAlt || featureStory.title} fill className="bg-neutral-200 object-cover"/>
               </div>
               <div className="px-4 py-5 sm:px-5">
                 <p className="text-center text-xs font-semibold uppercase tracking-wide text-neutral-500">

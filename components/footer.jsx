@@ -26,8 +26,6 @@ const LEGAL_LINKS = [
   "Manage Cookies",
 ];
 
-// Simple inline SVG icons — avoids relying on brand icons from icon packages,
-// which get removed/renamed over time due to trademark restrictions.
 const SOCIAL_LINKS = [
   {
     label: "Facebook",
@@ -97,12 +95,7 @@ export default function Footer() {
         <div className="flex items-center justify-center gap-5 border-t border-neutral-700 py-8">
           {SOCIAL_LINKS.map(({ label, href, path }) => (
             <a key={label} href={href} aria-label={label} className="text-neutral-300 hover:text-white">
-              <svg
-                viewBox="0 0 24 24"
-                className="h-5 w-5"
-                fill="currentColor"
-                aria-hidden="true"
-              >
+              <svg viewBox="0 0 24 24" className="h-5 w-5" fill="currentColor" aria-hidden="true">
                 <path d={path} />
               </svg>
             </a>

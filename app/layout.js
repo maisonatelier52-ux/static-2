@@ -3,7 +3,6 @@ import { UnifrakturCook } from "next/font/google";
 import Header from "../components/header";
 import Footer from "../components/footer";
 
-// Blackletter/gothic font used for the "Le Monde" style logo in the header
 const logoFont = UnifrakturCook({
   weight: "700",
   subsets: ["latin"],

@@ -3,12 +3,8 @@
 import { useState, useEffect, useMemo } from "react";
 import { Menu, X, Search, CircleUserRound } from "lucide-react";
 import Link from "next/link";
-
-// ⚠️ Adjust this path to match where this component actually lives relative to /public/data
 import articleData from "../public/data/article.json";
 
-// Each nav item needs both the label shown to the user and the slug used
-// in the URL (must match the keys in article.json, e.g. "business").
 const NAV_LINKS = [
   { label: "Business", slug: "business" },
   { label: "Finance", slug: "finance" },
@@ -18,8 +14,6 @@ const NAV_LINKS = [
   { label: "Sports", slug: "sports" },
 ];
 
-// Flatten every category's articles into one list, tagging each with its
-// category slug, so search can look across all of them at once.
 const ALL_ARTICLES = Object.entries(articleData).flatMap(([category, posts]) =>
   posts.map((post) => ({ ...post, categorySlug: category }))
 );
@@ -37,8 +31,7 @@ export default function Header() {
     const timer = setInterval(() => setNow(new Date()), 1000 * 30);
     return () => clearInterval(timer);
   }, []);
-
-  // Lock body scroll while the mobile menu or search overlay is open
+  
   useEffect(() => {
     document.body.style.overflow = menuOpen || searchOpen ? "hidden" : "";
     return () => {
@@ -78,38 +71,25 @@ export default function Header() {
 
   return (
     <header className="relative w-full bg-neutral-900 text-white">
-      {/* Top bar */}
       <div className="mx-auto flex max-w-[1400px] items-center justify-between px-4 py-3 sm:px-6">
-        {/* Date / time */}
         <div className="hidden min-w-[160px] flex-col text-sm leading-tight sm:flex">
           <span className="font-semibold">{dateLabel}</span>
           <span className="text-neutral-300">{timeLabel}</span>
         </div>
 
         {/* Mobile menu button */}
-        <button
-          aria-label="Open menu"
-          onClick={() => setMenuOpen(true)}
-          className="text-neutral-200 hover:text-white sm:hidden"
-        >
+        <button aria-label="Open menu" onClick={() => setMenuOpen(true)} className="text-neutral-200 hover:text-white sm:hidden">
           <Menu className="h-6 w-6" strokeWidth={2} />
         </button>
 
         {/* Logo */}
-        <Link
-          href="/"
-          className="mx-auto text-4xl tracking-tight sm:text-5xl [font-family:var(--font-logo)]"
-        >
+        <Link href="/" className="mx-auto text-4xl tracking-tight sm:text-5xl [font-family:var(--font-logo)]">
           Le Monde
         </Link>
 
         {/* Right controls */}
         <div className="flex items-center gap-4 sm:min-w-[160px] sm:justify-end">
-          <button
-            aria-label="Search"
-            onClick={() => setSearchOpen((open) => !open)}
-            className="text-neutral-200 hover:text-white"
-          >
+          <button aria-label="Search" onClick={() => setSearchOpen((open) => !open)} className="text-neutral-200 hover:text-white">
             <Search className="h-5 w-5" strokeWidth={2} />
           </button>
           <button className="hidden rounded-sm bg-amber-400 px-4 py-2 text-sm font-semibold text-neutral-900 hover:bg-amber-300 sm:block">
@@ -125,11 +105,7 @@ export default function Header() {
       <nav className="hidden border-t border-neutral-700 sm:block">
         <div className="mx-auto flex max-w-[1400px] items-center justify-center gap-6 overflow-x-auto px-4 py-3 text-sm font-semibold sm:px-6">
           {NAV_LINKS.map((item) => (
-            <Link
-              key={item.slug}
-              href={`/${item.slug}`}
-              className="whitespace-nowrap hover:text-amber-300"
-            >
+            <Link key={item.slug} href={`/${item.slug}`} className="whitespace-nowrap hover:text-amber-300">
               {item.label}
             </Link>
           ))}
@@ -142,19 +118,8 @@ export default function Header() {
           <div className="mx-auto max-w-[1400px] px-4 py-5 sm:px-6">
             <div className="flex items-center gap-3">
               <Search className="h-5 w-5 shrink-0 text-neutral-400" strokeWidth={2} />
-              <input
-                type="text"
-                autoFocus
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Search articles..."
-                className="w-full bg-transparent text-lg text-white placeholder-neutral-500 focus:outline-none"
-              />
-              <button
-                aria-label="Close search"
-                onClick={closeSearch}
-                className="text-neutral-400 hover:text-white"
-              >
+              <input type="text" autoFocus value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search articles..." className="w-full bg-transparent text-lg text-white placeholder-neutral-500 focus:outline-none"/>
+              <button aria-label="Close search" onClick={closeSearch} className="text-neutral-400 hover:text-white">
                 <X className="h-5 w-5" strokeWidth={2} />
               </button>
             </div>
@@ -170,11 +135,7 @@ export default function Header() {
                   <ul className="flex flex-col">
                     {results.map((article) => (
                       <li key={article.slug}>
-                        <Link
-                          href={`/${article.categorySlug}/${article.slug}`}
-                          onClick={closeSearch}
-                          className="group flex flex-col gap-0.5 border-b border-neutral-800 py-3 last:border-0"
-                        >
+                        <Link href={`/${article.categorySlug}/${article.slug}`} onClick={closeSearch} className="group flex flex-col gap-0.5 border-b border-neutral-800 py-3 last:border-0">
                           <span className="text-xs font-semibold uppercase tracking-wide text-amber-400">
                             {article.category}
                           </span>
@@ -199,10 +160,7 @@ export default function Header() {
         }`}
       >
         {/* Overlay */}
-        <div
-          className="absolute inset-0 bg-black/50"
-          onClick={() => setMenuOpen(false)}
-        />
+        <div className="absolute inset-0 bg-black/50" onClick={() => setMenuOpen(false)}/>
 
         {/* Sliding panel */}
         <div
@@ -211,26 +169,15 @@ export default function Header() {
           }`}
         >
           <div className="flex items-center justify-between border-b border-neutral-700 px-5 py-4">
-            <span className="text-2xl [font-family:var(--font-logo)]">
-              Le Monde
-            </span>
-            <button
-              aria-label="Close menu"
-              onClick={() => setMenuOpen(false)}
-              className="text-neutral-200 hover:text-white"
-            >
+            <span className="text-2xl [font-family:var(--font-logo)]">Le Monde</span>
+            <button aria-label="Close menu" onClick={() => setMenuOpen(false)} className="text-neutral-200 hover:text-white">
               <X className="h-6 w-6" strokeWidth={2} />
             </button>
           </div>
 
           <nav className="flex flex-col px-5 py-4">
             {NAV_LINKS.map((item) => (
-              <Link
-                key={item.slug}
-                href={`/${item.slug}`}
-                onClick={() => setMenuOpen(false)}
-                className="border-b border-neutral-800 py-3 text-base font-semibold hover:text-amber-300"
-              >
+              <Link key={item.slug} href={`/${item.slug}`} onClick={() => setMenuOpen(false)} className="border-b border-neutral-800 py-3 text-base font-semibold hover:text-amber-300">
                 {item.label}
               </Link>
             ))}
